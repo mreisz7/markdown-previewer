@@ -10,59 +10,59 @@ marked.setOptions({
   breaks: true,
 });
 
+const defaultText: string = `# An H1 element (#)
+
+## An H2 element (##)
+  
+**Inline Code**: \`this.setState({});\` (between backticks)
+
+**Multiline Code**:
+
+\`\`\`
+render() {
+  return (
+    <div>Something to Render</div>
+  )
+}
+\`\`\`
+
+**Bold Text**: **Surround with Asterisks**
+
+**Italic Text**: _Surround with Underscores_ 
+
+**Strikethrough**: ~~Surround with Tildes~~ 
+
+**Links**: [links](https://www.freecodecamp.com)
+
+**Block Quotes**:
+> Here is some text that will be displayed in a block quote.
+
+**Bulleted Lists**:
+- Item #1
+- Item #2
+- Item #3
+
+
+**Numbered Lists**:
+1. And there are numbererd lists too.
+1. Use just 1s if you want! 
+1. But the list goes on...
+
+
+**Images**:
+![Michael Reisz](https://www.mreisz.com/static/img/profile.jpg)
+`;
+
 const renderer = new marked.Renderer();
-renderer.link = function(href, title, text) {
+renderer.link = function(href, _, text) {
   return `<a target="_blank" href="${href}">${text}</a>`;
 };
 
 export class App extends React.Component<{}, AppState> {
-  defaultText: string = `# An H1 element (#)
-
-  ## An H2 element (##)
-    
-  **Inline Code**: \`this.setState({});\` (between backticks)
-  
-  **Multiline Code**:
-  
-  \`\`\`
-  render() {
-    return (
-      <div>Something to Render</div>
-    )
-  }
-  \`\`\`
-
-  **Bold Text**: **Surround with Asterisks**
-
-  **Italic Text**: _Surround with Underscores_ 
-  
-  **Strikethrough**: ~~Surround with Tildes~~ 
-  
-  **Links**: [links](https://www.freecodecamp.com)
-
-  **Block Quotes**:
-  > Here is some text that will be displayed in a block quote.
-  
-  **Bulleted Lists**:
-  - Item #1
-  - Item #2
-  - Item #3
-
-  
-  **Numbered Lists**:
-  1. And there are numbererd lists too.
-  1. Use just 1s if you want! 
-  1. But the list goes on...
-
-
-  **Images**:
-  ![Michael Reisz](https://www.mreisz.com/static/img/profile.jpg)
-  `;
-  
   constructor(props: {}) {
     super(props);
     this.state = {
-      rawMarkdown: this.defaultText,
+      rawMarkdown: defaultText,
     }
     this.handleMarkdownChange = this.handleMarkdownChange.bind(this);
   }
@@ -109,8 +109,10 @@ export class App extends React.Component<{}, AppState> {
     return (
       <>
         {this.renderHeader()}
-        {this.renderEditor()}
-        {this.renderPreview()}
+        <div id="preview-area">
+          {this.renderEditor()}
+          {this.renderPreview()}
+        </div>
         {this.renderFooter()}
       </>
     );
