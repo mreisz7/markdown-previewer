@@ -13,9 +13,14 @@ header {
   #editor,
   #preview {
     flex: 1 0 50%;
+    padding: 1em;
     display: inline-block;
     overflow-y: auto;
     justify-content: stretch;
+  }
+
+  #preview {
+    padding: 1em 1em 1em 2em;
   }
 }
 
